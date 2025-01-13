@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const Login = () => {
+const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ const Login = () => {
     // Mock de validación simple
     if (email === 'admin@yellowcheck.com' && password === 'password123') {
       localStorage.setItem('authToken', 'mock-auth-token');
-      router.push('/');
+      router.push('/dashboard'); // Redirige al Dashboard
     } else {
       setError('Invalid email or password. Please try again.');
     }
@@ -23,12 +23,21 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6 text-[#375A7F]">Welcome to Yellow Check</h1>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+        <h1 className="text-2xl font-bold text-center mb-6 text-[#375A7F]">
+          Welcome to Yellow Check
+        </h1>
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+        )}
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email Address
+            </label>
             <input
               type="email"
               id="email"
@@ -41,7 +50,12 @@ const Login = () => {
 
           {/* Password Field */}
           <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
             <input
               type={showPassword ? 'text' : 'password'}
               id="password"
